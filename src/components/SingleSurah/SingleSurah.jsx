@@ -1,24 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Card, Col, Button, Modal } from "react-bootstrap";
+import React from "react";
+import { Card, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import PlayModal from "../PlayModal/PlayModal";
 
 const SingleSurah = (props) => {
   const navigate = useNavigate();
-  const [ayahNo, setAyahNo] = useState(0);
-  const [showAyah, setShowAyah] = useState(false);
-  const [auto, setAuto] = useState(false);
-  const [ayah, setAyah] = useState("");
-  const [audio, setAudio] = useState("");
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  useEffect(() => {
-    setAyah("﻿بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ");
-    setAudio("https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3");
-  }, []);
 
   return (
     <div>
@@ -44,31 +29,6 @@ const SingleSurah = (props) => {
             <Card.Text className="text-start">
               Surah Revelation Type : {props.singleSurah.revelationType}
             </Card.Text>
-            {/* <audio
-              src={audio}
-              controls
-              autoPlay={auto}
-              onPlay={() => {
-                setShowAyah(true);
-                setAuto(true);
-              }}
-              onEnded={() => {
-                setAudio(props.singleSurah.ayahs[ayahNo]?.audio);
-                setAyah(props.singleSurah.ayahs[ayahNo]?.text);
-                if (ayahNo < props.singleSurah.ayahs.length - 1) {
-                  setAyahNo(ayahNo + 1);
-                }
-                if (ayahNo == props.singleSurah.ayahs.length - 1) {
-                  setShowAyah(false);
-                }
-              }}
-            ></audio>
-            {showAyah && (
-              <>
-                <div>Playing Ayah no :{ayahNo}</div>
-                <p>{ayah}</p>
-              </>
-            )} */}
             <Card.Footer>
               <div
                 style={{
@@ -78,13 +38,16 @@ const SingleSurah = (props) => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    navigate(`/surah/${props.singleSurah.number}`)
-                  }
+                  onClick={() => navigate(`/surah/${props.singleSurah.number}`)}
                 >
                   See More
                 </Button>
-                <Button variant="primary" onClick={handleShow}>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    props.handleModalData(props.singleSurah);
+                  }}
+                >
                   Play
                 </Button>
               </div>
@@ -92,15 +55,6 @@ const SingleSurah = (props) => {
           </Card.Body>
         </Card>
       </Col>
-      <Modal
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={show}
-        onHide={handleClose}
-      >
-        <PlayModal singleSurah={props.singleSurah}/>
-      </Modal>
     </div>
   );
 };
