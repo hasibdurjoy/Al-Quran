@@ -40,7 +40,8 @@ function Header() {
               <Form.Control
                 type="search"
                 placeholder="Enter Surah Name"
-                className="w-100"
+                className="rounded-pill"
+                style={{ width: "400px" }}
                 aria-label="Search"
                 onChange={(e) => {
                   setSearchData(e.target.value);
