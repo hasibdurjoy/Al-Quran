@@ -1,4 +1,10 @@
 import axios from "axios";
+import {
+  SkipForwardCircle,
+  SkipBackCircle,
+  Rewind,
+  FastForward,
+} from "phosphor-react";
 import React, { useContext, useState, useEffect } from "react";
 import { Button, Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { DataProvider } from "../../Context/DataProvider";
@@ -19,16 +25,21 @@ const Player = () => {
     setSurahLoading(true);
     if (selectedPlay.name || playSurah.name) {
       if (playSurah.number === 1) {
-        console.log(playSurah.ayahs[0]?.audio);
         setAudio(playSurah.ayahs[0]?.audio);
         setAyah(playSurah.ayahs[0]?.text);
         setAyahNo(1);
+        const scrollV = document.getElementById(1);
+        scrollV &&
+          scrollV.scrollIntoView({ behavior: "smooth", block: "start" });
       } else {
         setAudio(
           "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3"
         );
         setAyah("﻿بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ");
         setAyahNo(0);
+        document
+          .getElementById(playSurah.number)
+          .scrollIntoView({ behavior: "smooth", block: "start" });
       }
       setSurahLoading(false);
     }
@@ -49,6 +60,20 @@ const Player = () => {
     setLoading(true);
     getData();
   }, []);
+
+  const handleOnEnd = () => {
+    setAudio(playSurah.ayahs[ayahNo]?.audio);
+    setAyah(playSurah.ayahs[ayahNo]?.text);
+    if (ayahNo < playSurah.ayahs.length) {
+      setAyahNo(ayahNo + 1);
+    }
+    if (ayahNo === playSurah.ayahs.length) {
+      // setShowAyah(false);
+      setPlaySurah(
+        allSurah.find((sSurah) => sSurah.number === playSurah.number + 1)
+      );
+    }
+  };
 
   const playPrevious = () => {
     if (playSurah.number === 1) {
@@ -148,36 +173,51 @@ const Player = () => {
                           setAuto(true);
                         }}
                         onEnded={() => {
-                          setAudio(playSurah.ayahs[ayahNo]?.audio);
-                          setAyah(playSurah.ayahs[ayahNo]?.text);
-                          if (ayahNo < playSurah.ayahs.length) {
-                            setAyahNo(ayahNo + 1);
-                          }
-                          if (ayahNo === playSurah.ayahs.length) {
-                            // setShowAyah(false);
-                            setPlaySurah(
-                              allSurah.find(
-                                (sSurah) =>
-                                  sSurah.number === playSurah.number + 1
-                              )
-                            );
-                          }
+                          handleOnEnd();
                         }}
                       ></audio>
-                      <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-evenly",
+                        }}
+                      >
                         <Button
+                          variant="danger"
+                          className="rounded-pill"
                           onClick={() => {
                             playPrevious();
                           }}
                         >
-                          Prev
+                          <SkipBackCircle size={25} />
                         </Button>
+                        <div>
+                          <Button
+                            className="rounded-pill"
+                            onClick={() => {
+                              playNext();
+                            }}
+                            disabled
+                          >
+                            <Rewind size={20} />
+                          </Button>
+                          <Button
+                            className="rounded-pill"
+                            onClick={() => {
+                              playNext();
+                            }}
+                            disabled
+                          >
+                            <FastForward size={20} />
+                          </Button>
+                        </div>
                         <Button
+                          className="rounded-pill"
                           onClick={() => {
                             playNext();
                           }}
                         >
-                          Next
+                          <SkipForwardCircle size={25} />
                         </Button>
                       </div>
                     </div>
@@ -215,6 +255,7 @@ const Player = () => {
                       playSurah.number === surah.number ? "bg-danger" : ""
                     }`}
                     style={{ height: "110px", justifyContent: "center" }}
+                    id={surah.number}
                   >
                     <Row>
                       <Col

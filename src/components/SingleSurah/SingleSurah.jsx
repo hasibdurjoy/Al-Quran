@@ -13,7 +13,7 @@ const SingleSurah = (props) => {
         <Card
           onClick={() => {
             handlePlaySurah(props.singleSurah);
-            navigate("player");
+            navigate("/player");
           }}
         >
           <Card.Body>
@@ -45,17 +45,29 @@ const SingleSurah = (props) => {
                 }}
               >
                 <Button
+                  className="rounded-pill"
                   onClick={() => navigate(`/surah/${props.singleSurah.number}`)}
                 >
-                  See More
+                  Read
                 </Button>
                 <Button
-                  variant="primary"
+                  variant="danger"
+                  className="rounded-pill"
+                  onClick={() => {
+                    handlePlaySurah(props.singleSurah);
+                    navigate("/player");
+                  }}
+                >
+                  Play
+                </Button>
+                <Button
+                  variant="success"
+                  className="rounded-pill"
                   onClick={() => {
                     props.handleModalData(props.singleSurah);
                   }}
                 >
-                  Play
+                  Modal
                 </Button>
               </div>
             </Card.Footer>
