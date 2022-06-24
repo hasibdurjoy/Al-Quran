@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import { DataProvider } from "../../Context/DataProvider";
 
 const SingleSurah = (props) => {
+  const { handlePlaySurah } = useContext(DataProvider);
   const navigate = useNavigate();
 
   return (
     <div>
       <Col className="h-100">
-        <Card>
+        <Card
+          onClick={() => {
+            handlePlaySurah(props.singleSurah);
+            navigate("player");
+          }}
+        >
           <Card.Body>
             <Card.Title className="text-start">
               Surah Name : {props.singleSurah.name}
