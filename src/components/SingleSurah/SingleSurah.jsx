@@ -46,14 +46,18 @@ const SingleSurah = (props) => {
               >
                 <Button
                   className="rounded-pill"
-                  onClick={() => navigate(`/surah/${props.singleSurah.number}`)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/surah/${props.singleSurah.number}`);
+                  }}
                 >
                   Read
                 </Button>
                 <Button
                   variant="danger"
                   className="rounded-pill"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     handlePlaySurah(props.singleSurah);
                     navigate("/player");
                   }}
@@ -63,7 +67,8 @@ const SingleSurah = (props) => {
                 <Button
                   variant="success"
                   className="rounded-pill"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     props.handleModalData(props.singleSurah);
                   }}
                 >

@@ -21,10 +21,10 @@
 
 @media only screen and (max-width: 600px) {
   .player{
-    height: 30vh;
+    height: 33vh;
   }
   .allSurah{
-    height: 57vh;
+    height: 54vh;
     overflow-y: scroll;
     width: 90%;
     margin-left: 5%;
