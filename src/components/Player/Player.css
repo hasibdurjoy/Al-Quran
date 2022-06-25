@@ -18,18 +18,21 @@
 .spinner{
   margin-top: 40vh;
 }
+.audioPlayer{
+  height: 40px;
+}
 
 @media only screen and (max-width: 600px) {
   .player{
-    height: 33vh;
+    height: 35vh;
   }
   .allSurah{
-    height: 54vh;
+    height: 52vh;
     overflow-y: scroll;
     width: 90%;
     margin-left: 5%;
     border: 2px solid red;
-    margin-top: 10px;
+    margin-top: 5px;
   }
   .playerCard{
     border: 1px solid black;
@@ -42,5 +45,11 @@
   }
   .audioPlayer{
     height: 30px;
+  }
+  .surahName{
+    font-size: 15px;
+  }
+  .ayah{
+    font-size: 16px;
   }
 }

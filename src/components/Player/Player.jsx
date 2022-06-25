@@ -146,10 +146,10 @@ const Player = () => {
                   <>
                     <div className="px-5 mt-3 card border-0 shadow-sm">
                       <div className="text-center">
-                        <h3>{playSurah.name}</h3>
+                        <h3 className="surahName">{playSurah.name}</h3>
                       </div>
                       <div className="text-center">
-                        <h4>{playSurah.englishName}</h4>
+                        <h4 className="surahName">{playSurah.englishName}</h4>
                       </div>
                       <div className="text-start d-none d-md-block">
                         Surah Serial No: {playSurah.number}
@@ -167,12 +167,12 @@ const Player = () => {
                     </div>
                     <div>
                       {showAyah && (
-                        <div className="pt-2 mt-lg-4 mt-md-3">
+                        <div className="pt-md-2 mt-lg-4 mt-md-3">
                           <span className="text-center d-none d-md-block">
                             Playing Ayah no : {ayahNo}
                           </span>
-                          <br />
-                          <h4 className="text-center">{ayah}</h4>
+                          <br className="d-none d-md-block" />
+                          <h4 className="text-center pt-2 ayah">{ayah}</h4>
                         </div>
                       )}
                     </div>
