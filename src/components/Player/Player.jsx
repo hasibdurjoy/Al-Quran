@@ -50,9 +50,10 @@ const Player = () => {
   }, [playSurah]);
 
   const getData = async () => {
-    const quranData = await axios.get(
+    /* const quranData = await axios.get(
       "https://api.alquran.cloud/v1/quran/ar.alafasy"
-    );
+    ); */
+    const quranData = await axios.get("./AllSurah.json");
     setDisplaySurah(quranData.data.data.surahs);
     setAllSurah(quranData.data.data.surahs);
     if (!selectedPlay.number) {
@@ -293,6 +294,7 @@ const Player = () => {
                       height: "70px",
                       justifyContent: "center",
                       borderRadius: "20px",
+                      cursor: "pointer",
                     }}
                     id={surah.number}
                   >
