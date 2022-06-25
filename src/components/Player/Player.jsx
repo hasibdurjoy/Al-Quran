@@ -15,6 +15,7 @@ const Player = () => {
   const [loading, setLoading] = useState(false);
   const [surahLoading, setSurahLoading] = useState(false);
   const [allSurah, setAllSurah] = useState([]);
+  const [displaySurah, setDisplaySurah] = useState([]);
   const [playSurah, setPlaySurah] = useState(selectedPlay ? selectedPlay : {});
   const [ayahNo, setAyahNo] = useState(0);
   const [showAyah, setShowAyah] = useState(false);
@@ -50,12 +51,35 @@ const Player = () => {
     const quranData = await axios.get(
       "https://api.alquran.cloud/v1/quran/ar.alafasy"
     );
+    setDisplaySurah(quranData.data.data.surahs);
     setAllSurah(quranData.data.data.surahs);
     if (!selectedPlay.number) {
       setPlaySurah(quranData.data.data.surahs[0]);
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    const show = allSurah.filter((s) => {
+      s.englishName.toLowerCase().includes(searchData.toLowerCase());
+    });
+    console.log(show);
+    setDisplaySurah(show);
+    /* if (typeof searchData === string) {
+      setDisplaySurah(
+        allSurah.filter((sSurah) => {
+          sSurah.englishName.toLowerCase().includes(searchData.toLowerCase());
+        })
+      );
+    }
+    if (typeof searchData === number) {
+      setDisplaySurah(
+        allSurah.filter((sSurah) => {
+          sSurah.number.includes(searchData);
+        })
+      );
+    } */
+  }, [searchData]);
 
   useEffect(() => {
     setLoading(true);
@@ -108,8 +132,8 @@ const Player = () => {
       <Row>
         <Col xs={12} md={9} className="player">
           {surahLoading ? (
-            <div className="text-center mx-auto" style={{ marginTop: "40vh" }}>
-              <Button variant="primary" disabled>
+            <div className="text-center mx-auto spinner">
+              <Button variant="danger" disabled>
                 <div className="d-flex align-items-center justify-content-between">
                   <Spinner
                     as="span"
@@ -123,7 +147,7 @@ const Player = () => {
             </div>
           ) : (
             <>
-              <Card style={{ height: "100%" }} className="shadow-lg rounded-3">
+              <Card style={{ height: "100%" }} className="shadow-lg playerCard">
                 {playSurah && (
                   <>
                     <div className="px-5 mt-3 card border-0 shadow-sm">
@@ -235,8 +259,8 @@ const Player = () => {
         </Col>
         <Col xs={12} md={3} className="allSurah">
           {loading ? (
-            <div className="text-center mx-auto" style={{ marginTop: "40vh" }}>
-              <Button variant="primary" disabled>
+            <div className="text-center mx-auto spinner">
+              <Button variant="success" disabled>
                 <div className="d-flex align-items-center justify-content-between">
                   <Spinner
                     as="span"
@@ -250,17 +274,23 @@ const Player = () => {
             </div>
           ) : (
             <>
-              {allSurah.map((surah) => {
+              {displaySurah.map((surah) => {
                 return (
                   <Card
                     key={surah.number}
                     onClick={() => {
                       setPlaySurah(surah);
                     }}
-                    className={`my-3 border-0 shadow px-3  ${
-                      playSurah.number === surah.number ? "bg-danger" : ""
+                    className={`mb-2 shadow px-3  ${
+                      playSurah.number === surah.number
+                        ? "bg-danger text-light"
+                        : ""
                     }`}
-                    style={{ height: "110px", justifyContent: "center" }}
+                    style={{
+                      height: "70px",
+                      justifyContent: "center",
+                      borderRadius: "20px",
+                    }}
                     id={surah.number}
                   >
                     <Row>
@@ -269,7 +299,7 @@ const Player = () => {
                         md={2}
                         style={{ display: "flex", alignItems: "center" }}
                       >
-                        <h2>{surah.number}</h2>
+                        <h4>{surah.number}</h4>
                       </Col>
                       <Col
                         xs={10}
@@ -280,8 +310,8 @@ const Player = () => {
                           alignItems: "center",
                         }}
                       >
-                        <h4>{surah.name}</h4>
-                        <h4>{surah.englishName}</h4>
+                        <h6>{surah.name}</h6>
+                        <h6>{surah.englishName}</h6>
                       </Col>
                     </Row>
                   </Card>

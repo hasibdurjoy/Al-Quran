@@ -13,10 +13,16 @@ const Surah = () => {
   const [ayah, setAyah] = useState("");
   const [showAyah, setShowAyah] = useState(false);
   const [auto, setAuto] = useState(false);
+  const [surahNo, setSurahNo] = useState(
+    surahNumber > 114 || surahNumber < 1 ? "1" : surahNumber
+  );
 
   const getSurah = async () => {
+    if (surahNumber > 114 || surahNumber < 1) {
+      alert("search between 1 to 114");
+    }
     const surah = await axios.get(
-      `https://api.alquran.cloud/v1/surah/${surahNumber}/ar.alafasy`
+      `https://api.alquran.cloud/v1/surah/${surahNo}/ar.alafasy`
     );
     setNewSurah(surah.data.data);
     setLoading(false);
@@ -95,7 +101,10 @@ const Surah = () => {
                 )}
               </Col>
             </Row>
-            <Card.Title>Ayats</Card.Title>
+            <Card.Title>
+              Ayats <br />
+              <br /> ﻿بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+            </Card.Title>
             {newSurah?.ayahs?.map((sAyah, index) => {
               return (
                 <>

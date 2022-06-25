@@ -3,15 +3,41 @@
 }
 .allSurah{
   height: 88vh;
-  overflow: scroll;
+  overflow-y: scroll;
+  border: 2px solid red;
+  border-radius: 20px;
+  padding-top: 5px;
+  scroll-behavior: smooth;
+}
+
+.playerCard{
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.spinner{
+  margin-top: 40vh;
 }
 
 @media only screen and (max-width: 600px) {
   .player{
-    height: 45vh;
+    height: 40vh;
   }
   .allSurah{
-    height: 40vh;
-    overflow: scroll;
+    height: 47vh;
+    overflow-y: scroll;
+    width: 90%;
+    margin-left: 5%;
+    border: 2px solid red;
+    margin-top: 5px;
+  }
+  .playerCard{
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 96%;
+    margin-left: 2%;
+  }
+  .spinner{
+    margin-top: 25%;
   }
 }
