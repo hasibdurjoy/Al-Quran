@@ -8,6 +8,7 @@ import {
 import React, { useContext, useState, useEffect } from "react";
 import { Button, Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { DataProvider } from "../../Context/DataProvider";
+import "./Player.css";
 
 const Player = () => {
   const { searchData, selectedPlay } = useContext(DataProvider);
@@ -63,15 +64,23 @@ const Player = () => {
 
   const handleOnEnd = () => {
     setAudio(playSurah.ayahs[ayahNo]?.audio);
-    setAyah(playSurah.ayahs[ayahNo]?.text);
+    setAyah(
+      playSurah.ayahs[ayahNo]?.text.replace(
+        "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+        ""
+      )
+    );
     if (ayahNo < playSurah.ayahs.length) {
       setAyahNo(ayahNo + 1);
     }
     if (ayahNo === playSurah.ayahs.length) {
-      // setShowAyah(false);
-      setPlaySurah(
-        allSurah.find((sSurah) => sSurah.number === playSurah.number + 1)
-      );
+      if (playSurah.number === 114) {
+        setPlaySurah(allSurah[0]);
+      } else {
+        setPlaySurah(
+          allSurah.find((sSurah) => sSurah.number === playSurah.number + 1)
+        );
+      }
     }
   };
 
@@ -95,9 +104,9 @@ const Player = () => {
   };
 
   return (
-    <Container style={{ marginTop: "70px" }}>
+    <Container style={{ marginTop: "70px", overflow: "hidden" }}>
       <Row>
-        <Col xs={1} md={9} style={{ height: "80vh" }}>
+        <Col xs={12} md={9} className="player">
           {surahLoading ? (
             <div className="text-center mx-auto" style={{ marginTop: "40vh" }}>
               <Button variant="primary" disabled>
@@ -114,42 +123,38 @@ const Player = () => {
             </div>
           ) : (
             <>
-              <Card style={{ height: "100%" }}>
+              <Card style={{ height: "100%" }} className="shadow-lg rounded-3">
                 {playSurah && (
                   <>
-                    <div>
-                      <Card>
-                        <Card.Body>
-                          <Card.Title className="text-start">
-                            Surah Name : {playSurah.name}
-                          </Card.Title>
-                          <Card.Text className="text-start">
-                            Surah Name English: {playSurah.englishName}
-                          </Card.Text>
-                          <Card.Text className="text-start">
-                            Surah Serial No: {playSurah.number}
-                          </Card.Text>
-                          <Card.Text className="text-start">
-                            English Translated Name:{" "}
-                            {playSurah.englishNameTranslation}
-                          </Card.Text>
-                          <Card.Text className="text-start">
-                            Number of Ayahs :{playSurah?.ayahs?.length}
-                          </Card.Text>
-                          <Card.Text className="text-start">
-                            Surah Revelation Type : {playSurah.revelationType}
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
+                    <div className="px-5 mt-3 card border-0 shadow-sm">
+                      <div className="text-center">
+                        <h3>{playSurah.name}</h3>
+                      </div>
+                      <div className="text-center">
+                        <h4>{playSurah.englishName}</h4>
+                      </div>
+                      <div className="text-start d-none d-md-block">
+                        Surah Serial No: {playSurah.number}
+                      </div>
+                      <div className="text-start d-none d-md-block">
+                        English Translated Name:{" "}
+                        {playSurah.englishNameTranslation}
+                      </div>
+                      <div className="text-start d-none d-md-block">
+                        Number of Ayahs :{playSurah?.ayahs?.length}
+                      </div>
+                      <div className="text-start d-none d-md-block">
+                        Surah Revelation Type : {playSurah.revelationType}
+                      </div>
                     </div>
                     <div>
                       {showAyah && (
-                        <div>
-                          <h6 className="text-center">
-                            Playing Ayah no :{ayahNo}
-                          </h6>
+                        <div className="pt-2 mt-lg-4 mt-md-3">
+                          <span className="text-center d-none d-md-block">
+                            Playing Ayah no : {ayahNo}
+                          </span>
                           <br />
-                          <h3 className="text-center">{ayah}</h3>
+                          <h4 className="text-center">{ayah}</h4>
                         </div>
                       )}
                     </div>
@@ -189,7 +194,7 @@ const Player = () => {
                             playPrevious();
                           }}
                         >
-                          <SkipBackCircle size={25} />
+                          <SkipBackCircle size={30} />
                         </Button>
                         <div>
                           <Button
@@ -212,12 +217,13 @@ const Player = () => {
                           </Button>
                         </div>
                         <Button
+                          variant="danger"
                           className="rounded-pill"
                           onClick={() => {
                             playNext();
                           }}
                         >
-                          <SkipForwardCircle size={25} />
+                          <SkipForwardCircle size={30} />
                         </Button>
                       </div>
                     </div>
@@ -227,7 +233,7 @@ const Player = () => {
             </>
           )}
         </Col>
-        <Col xs={1} md={3} style={{ height: "88vh", overflowY: "scroll" }}>
+        <Col xs={12} md={3} className="allSurah">
           {loading ? (
             <div className="text-center mx-auto" style={{ marginTop: "40vh" }}>
               <Button variant="primary" disabled>
