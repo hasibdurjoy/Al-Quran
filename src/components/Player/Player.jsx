@@ -39,9 +39,11 @@ const Player = () => {
         );
         setAyah("﻿بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ");
         setAyahNo(0);
-        document
-          .getElementById(playSurah.number)
-          .scrollIntoView({ behavior: "smooth", block: "start" });
+        if (playSurah.number && allSurah.length) {
+          document
+            .getElementById(playSurah.number)
+            .scrollIntoView({ behavior: "smooth", block: "start" });
+        }
       }
       setSurahLoading(false);
     }
@@ -60,11 +62,12 @@ const Player = () => {
   };
 
   useEffect(() => {
-    const show = allSurah.filter((s) => {
-      s.englishName.toLowerCase().includes(searchData.toLowerCase());
-    });
-    console.log(show);
-    setDisplaySurah(show);
+    if (allSurah.length) {
+      const show = allSurah.filter((s) => {
+        s.englishName.toLowerCase().includes(searchData.toLowerCase());
+      });
+      setDisplaySurah(show);
+    }
     /* if (typeof searchData === string) {
       setDisplaySurah(
         allSurah.filter((sSurah) => {
