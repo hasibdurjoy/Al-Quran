@@ -21,15 +21,15 @@
 
 @media only screen and (max-width: 600px) {
   .player{
-    height: 40vh;
+    height: 30vh;
   }
   .allSurah{
-    height: 47vh;
+    height: 57vh;
     overflow-y: scroll;
     width: 90%;
     margin-left: 5%;
     border: 2px solid red;
-    margin-top: 5px;
+    margin-top: 10px;
   }
   .playerCard{
     border: 1px solid black;
@@ -39,5 +39,8 @@
   }
   .spinner{
     margin-top: 25%;
+  }
+  .audioPlayer{
+    height: 30px;
   }
 }

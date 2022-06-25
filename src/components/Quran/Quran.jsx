@@ -22,14 +22,14 @@ const Quran = () => {
   };
 
   const getData = async () => {
-    /* const quranData = await axios.get(
+    const quranData = await axios.get(
       "https://api.alquran.cloud/v1/quran/ar.alafasy"
-    ); */
-    const quranData = await axios.get("./AllSurah.json");
+    );
+    // const quranData = await axios.get("./AllSurah.json");
     setShowSurah(quranData.data.data.surahs);
     setSurah(quranData.data.data.surahs);
     setLoading(false);
-  };
+  };;
   useEffect(() => {
     const show = surah.filter((s) =>
       s.englishName.toLowerCase().includes(searchData.toLowerCase())

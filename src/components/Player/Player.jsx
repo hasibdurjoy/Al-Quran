@@ -40,9 +40,9 @@ const Player = () => {
         setAyah("﻿بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ");
         setAyahNo(0);
         if (playSurah.number && allSurah.length) {
-          document
-            .getElementById(playSurah.number)
-            .scrollIntoView({ behavior: "smooth", block: "start" });
+          const scrollV = document.getElementById(playSurah.number);
+          scrollV &&
+            scrollV.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }
       setSurahLoading(false);
@@ -50,10 +50,10 @@ const Player = () => {
   }, [playSurah]);
 
   const getData = async () => {
-    /* const quranData = await axios.get(
+    const quranData = await axios.get(
       "https://api.alquran.cloud/v1/quran/ar.alafasy"
-    ); */
-    const quranData = await axios.get("./AllSurah.json");
+    );
+    // const quranData = await axios.get("./AllSurah.json");
     setDisplaySurah(quranData.data.data.surahs);
     setAllSurah(quranData.data.data.surahs);
     if (!selectedPlay.number) {
@@ -64,25 +64,12 @@ const Player = () => {
 
   useEffect(() => {
     if (allSurah.length) {
-      const show = allSurah.filter((s) => {
-        s.englishName.toLowerCase().includes(searchData.toLowerCase());
-      });
-      setDisplaySurah(show);
-    }
-    /* if (typeof searchData === string) {
       setDisplaySurah(
-        allSurah.filter((sSurah) => {
-          sSurah.englishName.toLowerCase().includes(searchData.toLowerCase());
-        })
+        allSurah.filter((s) =>
+          s.englishName.toLowerCase().includes(searchData.toLowerCase())
+        )
       );
     }
-    if (typeof searchData === number) {
-      setDisplaySurah(
-        allSurah.filter((sSurah) => {
-          sSurah.number.includes(searchData);
-        })
-      );
-    } */
   }, [searchData]);
 
   useEffect(() => {
@@ -151,7 +138,10 @@ const Player = () => {
             </div>
           ) : (
             <>
-              <Card style={{ height: "100%" }} className="shadow-lg playerCard">
+              <Card
+                style={{ height: "100%" }}
+                className="shadow-lg playerCard pb-2"
+              >
                 {playSurah && (
                   <>
                     <div className="px-5 mt-3 card border-0 shadow-sm">
@@ -197,6 +187,7 @@ const Player = () => {
                       }}
                     >
                       <audio
+                        className="audioPlayer"
                         style={{ width: "90%" }}
                         src={audio}
                         controls
@@ -217,7 +208,7 @@ const Player = () => {
                       >
                         <Button
                           variant="danger"
-                          className="rounded-pill"
+                          className="rounded-circle p-0"
                           onClick={() => {
                             playPrevious();
                           }}
@@ -226,7 +217,7 @@ const Player = () => {
                         </Button>
                         <div>
                           <Button
-                            className="rounded-pill"
+                            className="rounded-circle p-0"
                             onClick={() => {
                               playNext();
                             }}
@@ -235,7 +226,7 @@ const Player = () => {
                             <Rewind size={20} />
                           </Button>
                           <Button
-                            className="rounded-pill"
+                            className="rounded-circle p-0"
                             onClick={() => {
                               playNext();
                             }}
@@ -246,7 +237,7 @@ const Player = () => {
                         </div>
                         <Button
                           variant="danger"
-                          className="rounded-pill"
+                          className="rounded-circle p-0"
                           onClick={() => {
                             playNext();
                           }}
