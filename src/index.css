@@ -7,8 +7,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.surahCard  {
+  transition: 0.5s all ease-in-out;
+  cursor: pointer;
+}
+
+.surahCard:hover  {
+  background-color: rgba(39, 245, 217, 0.459);
+transform: scale(0.95);
+}
+
 ::-webkit-scrollbar{
-  width: 13px;
+  width: 8px;
 }
 ::-webkit-scrollbar-thumb{
   background: linear-gradient(transparent,#30ff00);
@@ -16,6 +26,7 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover{
   background: linear-gradient(transparent,#00c6ff);
+  width: 13px;
 }
 
 code {

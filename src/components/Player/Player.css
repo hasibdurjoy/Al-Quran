@@ -22,6 +22,7 @@
   height: 40px;
 }
 
+
 @media only screen and (max-width: 600px) {
   .player{
     height: 35vh;

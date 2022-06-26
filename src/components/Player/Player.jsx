@@ -276,16 +276,20 @@ const Player = () => {
                     onClick={() => {
                       setPlaySurah(surah);
                     }}
-                    className={`mb-2 shadow px-3  ${
-                      playSurah.number === surah.number
-                        ? "bg-danger text-light"
-                        : ""
-                    }`}
+                    className={`mb-2 shadow px-3 surahCard  `}
                     style={{
                       height: "70px",
                       justifyContent: "center",
                       borderRadius: "20px",
                       cursor: "pointer",
+                      backgroundColor: `${
+                        playSurah.number === surah.number
+                          ? "rgba(127, 255, 212, 0.877)"
+                          : ""
+                      }`,
+                      color: `${
+                        playSurah.number === surah.number ? "white" : ""
+                      }`,
                     }}
                     id={surah.number}
                   >

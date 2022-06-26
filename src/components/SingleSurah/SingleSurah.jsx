@@ -8,13 +8,15 @@ const SingleSurah = (props) => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <Col className="h-100">
+    <>
+      <Col>
         <Card
           onClick={() => {
             handlePlaySurah(props.singleSurah);
             navigate("/player");
           }}
+          className="h-100 shadow-lg border-0 px-3 pb-2 surahCard"
+          style={{ borderRadius: "20px" }}
         >
           <Card.Body>
             <Card.Title className="text-start">
@@ -36,50 +38,50 @@ const SingleSurah = (props) => {
             <Card.Text className="text-start">
               Surah Revelation Type : {props.singleSurah.revelationType}
             </Card.Text>
-            <Card.Footer>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
+          </Card.Body>
+          <Card.Footer className="bg-transparent border-0 ">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Button
+                className="rounded-pill shadow-lg"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/surah/${props.singleSurah.number}`);
                 }}
               >
-                <Button
-                  className="rounded-pill"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/surah/${props.singleSurah.number}`);
-                  }}
-                >
-                  Read
-                </Button>
-                <Button
-                  variant="danger"
-                  className="rounded-pill"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePlaySurah(props.singleSurah);
-                    navigate("/player");
-                  }}
-                >
-                  Play
-                </Button>
-                <Button
-                  variant="success"
-                  className="rounded-pill"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    props.handleModalData(props.singleSurah);
-                  }}
-                >
-                  Modal
-                </Button>
-              </div>
-            </Card.Footer>
-          </Card.Body>
+                Read
+              </Button>
+              <Button
+                variant="danger"
+                className="rounded-pill shadow-lg"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePlaySurah(props.singleSurah);
+                  navigate("/player");
+                }}
+              >
+                Play
+              </Button>
+              <Button
+                variant="success"
+                className="rounded-pill shadow-lg"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  props.handleModalData(props.singleSurah);
+                }}
+              >
+                Modal
+              </Button>
+            </div>
+          </Card.Footer>
         </Card>
       </Col>
-    </div>
+    </>
   );
 };
 
